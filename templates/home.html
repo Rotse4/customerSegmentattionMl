@@ -12,7 +12,20 @@
             <tr>
                 <th>BALANCE</th>
                 <th>BALANCE_FREQUENCY</th>
-                <!-- Add more table headers for each feature -->
+                
+                <th>PURCHASES/th>
+                <th>ONEOFF PURCHASES</th>
+                <th>INSTALLMENTS PURCHASES</th>
+               
+                <th>CASH_ADVANCE</th>
+                <th>PURCHASES_FREQUENCY</th>
+                <th>ONEOFF_PURCHASES_FREQUENCY</th>
+                
+                <!-- <th>PURCHASES_INSTALLMENTS_FREQUENCY</th> -->
+                <th>PURCHASES_INSTALLMENTS_FREQUENCY</th>
+                <th>CASH_ADVANCE_FREQUENCY</th>
+                
+                <!-- <th>CASH_ADVANCE_TRX</th> -->
                 <th>Predicted Value</th>
             </tr>
         </thead>
@@ -21,6 +34,16 @@
             <tr>
                 <td>{{ row.BALANCE }}</td>
                 <td>{{ row.BALANCE_FREQUENCY }}</td>
+                <td>{{ row.PURCHASES }}</td>
+                <td>{{ row.ONEOFF_PURCHASES }}</td>
+                <td>{{ row.INSTALLMENTS_PURCHASES }}</td>
+                <td>{{ row.CASH_ADVANCE }}</td>
+                <td>{{ row.PURCHASES_FREQUENCY }}</td>
+                <td>{{ row.ONEOFF_PURCHASES_FREQUENCY }}</td>
+                <!-- <td>{{ row.PURCHASES_INSTALLMENTS_FREQUENCY }}</td> -->
+                <td>{{ row.PURCHASES_INSTALLMENTS_FREQUENCY }}</td>
+                <td>{{ row.CASH_ADVANCE_FREQUENCY }}</td>
+                <!-- <td>{{ row.CASH_ADVANCE_TRX }}</td> -->
                 <!-- Add more table cells for each feature -->
                 <td>{{ row.prediction }}</td>
             </tr>
@@ -29,3 +52,4 @@
     </table>
 </body>
 </html>
+['BALANCE', 'BALANCE_FREQUENCY', 'PURCHASES', 'ONEOFF_PURCHASES', 'INSTALLMENTS_PURCHASES', 'CASH_ADVANCE', 'PURCHASES_FREQUENCY', 'ONEOFF_PURCHASES_FREQUENCY', 'PURCHASES_INSTALLMENTS_FREQUENCY', 'CASH_ADVANCE_FREQUENCY', 'CASH_ADVANCE_TRX', 'PURCHASES_TRX', 'CREDIT_LIMIT', 'PAYMENTS', 'MINIMUM_PAYMENTS', 'PRC_FULL_PAYMENT', 'TENURE']
