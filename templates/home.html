@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Data Predictions</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>BALANCE</th>
+                <th>BALANCE_FREQUENCY</th>
+                <!-- Add more table headers for each feature -->
+                <th>Predicted Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.BALANCE }}</td>
+                <td>{{ row.BALANCE_FREQUENCY }}</td>
+                <!-- Add more table cells for each feature -->
+                <td>{{ row.prediction }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
