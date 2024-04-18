@@ -3,9 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Data Predictions</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('prediction-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                // Collect form data
+                var formData = new FormData(this);
+
+                // Send form data to server
+                fetch('/predict_from_csv/', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Display prediction result
+                    document.getElementById('prediction-value').textContent = data.prediction;
+                    document.getElementById('prediction-result').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
 </head>
 <body>
+    <h1>Data Predictions</h1>
+    <form id="prediction-form">
+        <!-- Input fields for user data -->
+        <label for="balance">BALANCE:</label>
+        <input type="text" id="balance" name="balance"><br><br>
+        
+        <label for="balance_frequency">BALANCE_FREQUENCY:</label>
+        <input type="text" id="balance_frequency" name="balance_frequency"><br><br>
+
+        <!-- Submit button -->
+        <input type="submit" value="Predict">
+    </form>
+    
+    <!-- Prediction result section -->
+    <div id="prediction-result" style="display: none;">
+        <h2>Prediction Result</h2>
+        <p>The predicted value is: <span id="prediction-value"></span></p>
+    </div>
     <h1>Data Predictions</h1>
     <table border="1">
         <thead>
