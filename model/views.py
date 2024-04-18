@@ -1,4 +1,3 @@
-# views.py
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -8,35 +7,36 @@ from . model import load_model
 
 @api_view(['POST'])
 def predict_from_csv(request):
-    if request.method == 'POST' and request.FILES.get('file'):
+    if request.method == 'POST':
         try:
             # Load the model
             model = load_model()
 
-            # Read the uploaded CSV file
-            csv_file = request.FILES['file']
-            df = pd.read_csv(csv_file,)
+            # Extract feature values from the form data
+            balance = float(request.POST.get('balance'))
+            balance_frequency = float(request.POST.get('balance_frequency'))
 
-            # Extract features from the DataFrame
-            # X = df[['feature1', 'feature2', ...]]  # Replace with actual feature names
-            X = df[['BALANCE', 'BALANCE_FREQUENCY', 'PURCHASES', 'ONEOFF_PURCHASES', 'INSTALLMENTS_PURCHASES', 'CASH_ADVANCE', 'PURCHASES_FREQUENCY', 'ONEOFF_PURCHASES_FREQUENCY', 'PURCHASES_INSTALLMENTS_FREQUENCY', 'CASH_ADVANCE_FREQUENCY', 'CASH_ADVANCE_TRX', 'PURCHASES_TRX', 'CREDIT_LIMIT', 'PAYMENTS', 'MINIMUM_PAYMENTS', 'PRC_FULL_PAYMENT', 'TENURE']] 
-            # print(X)
+            # Create a DataFrame from the extracted feature values
+            data = {'BALANCE': [balance], 'BALANCE_FREQUENCY': [balance_frequency]}
+            input_df = pd.DataFrame(data)
+
+            # Drop feature names from input DataFrame
+            input_df = input_df.values
+
+            print("Input data:", input_df)  # Debugging
 
             # Make predictions using the loaded model
-            predictions = model.predict(X)
-            df['prediction']=predictions
+            predictions = model.predict(input_df)
 
-            data = df.to_dict(orient='records')
+            print("Predictions:", predictions)  # Debugging
 
             # Return predictions in the response
-            return Response({'predictions': predictions.tolist()}, status=status.HTTP_200_OK)
-            # return render(request, 'predictions.html', {'data': data})
+            return Response({'prediction': predictions[0]}, status=status.HTTP_200_OK)
 
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'error': 'Prediction error: ' + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
-        return Response({'error': 'No file uploaded'}, status=status.HTTP_400_BAD_REQUEST)
-
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 def home(request):
